@@ -1,0 +1,30 @@
+---
+layout: runbook
+title: '#4471 · two causes, not one'
+owner: support desk
+status: living
+reviewed: 2026-10-29
+signature: phimanim
+---
+
+<script>
+  import CauseTable from '#lib/kb/CauseTable.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+</script>
+
+#4471 merged every date report into one ticket and marked it known. The table below is built from those reports at render time. It is not one cause.
+
+<CauseTable ticket={4471} />
+
+<Callout kind="warn">
+The row that is not this ticket needs a ticket of its own. Merging it here queued the wrong fix.
+</Callout>
+
+The cause most of the reports share stays #4471: the shared parser reads every date month first, and these tenants write the day first.
+
+The other cause is `hint`. Through booking-v3 the form prints MM/DD/YYYY. People type what the hint says. The form still reads the date the tenant's way. That is a different bug.
+
+Five reports under `parser` were already read as a one-day move. They stay counted where they are filed.
+
+<RenderStamp {signature} />
